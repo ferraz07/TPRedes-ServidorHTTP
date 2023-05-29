@@ -94,7 +94,7 @@ def receive():
         sendMessage(f"{username} entrou no chat.".encode('utf-8'))
         clients.append(client)
         client.send('\nConectado ao servidor!\n'.encode('utf-8'))
-        client.send("\nPara receber a lista de arquivos do servidor, digite 'getfile'\nPara receber um arquivo, digite 'sendfile + nome_do_arquivo'\nPara receber o header HTTP, digite '/HEADER'\nPara receber as informações sobre o computador, digite '/INFO'\n\n".encode('utf-8'))
+        client.send("\nPara receber a lista de arquivos do servidor, digite 'getfile'\nPara enviar um arquivo, digite 'sendfile + nome_do_arquivo'\nPara receber o header HTTP, digite '/HEADER'\nPara receber as informações sobre o computador, digite '/INFO'\n\n".encode('utf-8'))
         thread = threading.Thread(target=handle, args=(client, username, ))
         thread.start()
 
