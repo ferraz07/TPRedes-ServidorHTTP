@@ -13,7 +13,7 @@ dir_base = '/Users/felipeferraz/Documents/Redes-TP'
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 orig = (HOST, PORT)
 tcp.bind(orig)
-tcp.listen(3)
+tcp.listen(30)
 print(f"Servidor escutando na porta: {PORT}")
 
 clients = []
@@ -44,7 +44,7 @@ def send_header(client):
     html = f"""
 <html>
 <head>
-<title>Diretório Base</title>
+<title>Diretorio Base</title>
 </head>
 <body>
 <h1>Diretorio base:</h1>
@@ -64,13 +64,13 @@ def send_info(client):
     html = f"""
 <html>
 <head>
-<title>Informações do computador</title>
+<title>Informacoes do computador</title>
 </head>
 <body>
-<h1>Informações do computador:</h1>
+<h1>Informacoes do computador:</h1>
 <p>Sistema operacional: {so}</p>
 <p>Data: {data}</p>
-<p>Nome do usuário: {usuario}</p>
+<p>Nome do usuario: {usuario}</p>
 </body>
 </html>
 """
@@ -103,7 +103,8 @@ def handle(client, address):
                         html += f"<li><a href='{file_url}'>{filename}</a></li>\n"
                     html += """
 </ul>
-<h1>Para obter o Header digite '/HEADER' no cabeçalho do navegador</h1>
+<h1>Para obter o Header digite '/HEADER' no cabecalho do navegador</h1>
+<h1>Repositorio do GitHub: https://github.com/ferraz07/TPRedes-ServidorHTTP</h1>
 </body>
 </html>
 """
