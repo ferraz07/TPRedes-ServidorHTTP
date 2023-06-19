@@ -2,7 +2,7 @@
 import socket
 import threading
 
-HOST = '127.0.0.1'     # Endereco IP do Servidor
+HOST = ''     # Endereco IP do Servidor
 PORT = 5000            # Porta que o Servidor esta
 
 username = input("Digite seu nome de usuário: ")
