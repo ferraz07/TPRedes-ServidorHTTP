@@ -132,9 +132,12 @@ def handle(client, address):
 
 def serve():
     while True:
-        client, address = tcp.accept()
-        thread = threading.Thread(target=handle, args=(client, address))
-        thread.start()
+        try:
+            client, address = tcp.accept()
+            thread = threading.Thread(target=handle, args=(client, address))
+            thread.start()
+        except:
+            client.close()
 
 
 serve()
