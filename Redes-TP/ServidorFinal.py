@@ -7,8 +7,8 @@ import getpass
 
 
 HOST = ''  
-PORT = 8000 
-dir_base = '/Users/felipeferraz/Documents/Redes-TP'  
+PORT = 8080 
+dir_base = '/scratch/convidado/Downloads/TPRedes-ServidorHTTP-main/Redes-TP'  
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 orig = (HOST, PORT)
@@ -40,7 +40,7 @@ def send_file(client, filename):
 
 
 
-def send_header(client):
+def send_header(client, request):
     html = f"""
 <html>
 <head>
@@ -52,7 +52,7 @@ def send_header(client):
 </body>
 </html>
 """
-    response = f"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n{html}"
+    response = f"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n{html}HTTP Request Header:\n\n{request}\n"
     client.sendall(response.encode('utf-8'))
 
 
@@ -79,7 +79,7 @@ def send_info(client):
 
 
 def handle(client, address):
-    while True:
+    #while True:
         try:
             request = client.recv(1024).decode('utf-8')
             request_lines = request.split('\r\n')
@@ -114,20 +114,20 @@ def handle(client, address):
                     filename = path.split('/')[2]
                     send_file(client, filename)
                 elif path == '/HEADER':
-                    send_header(client)
+                    send_header(client, request)
                 elif path == '/INFO':
                     send_info(client)
                 else:
                     client.sendall("HTTP/1.1 404 Not Found\r\nContent-Type: text/plain\r\n\r\n404 Not Found\n".encode('utf-8'))
                     client.close()
-                    break
+                    #break
             else:
                 client.sendall("HTTP/1.1 400 Bad Request\r\nContent-Type: text/plain\r\n\r\n400 Bad Request\n".encode('utf-8'))
                 client.close()
-                break
+                #break
         except:
             client.close()
-            break
+            #break
 
 
 def serve():
